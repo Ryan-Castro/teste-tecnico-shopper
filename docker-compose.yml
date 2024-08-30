@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: mongo
+  
+  node:
+    container_name: node
+    build: .
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./src:/usr/app/src
