@@ -1,4 +1,4 @@
-# Teste para Shopeer
+# Teste para Shopper
 Nesse projeto, está o Back-end criado para um teste para uma vaga de emprego, utilizando nodeJS, express, API GeminiIA, e mongodb, sendo tudo dentro de containers no docker.
 
 # Objetivo
