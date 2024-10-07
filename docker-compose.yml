@@ -1,22 +1,26 @@
-version: '3.9'
 
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
-    restart: always
-    ports:
-      - 27017:27017
-    environment:
-      MONGO_INITDB_DATABASE: mongo
+  #   mongo:
+  #   image: mongo
+  #   container_name: mongo
+  #   restart: always
+  #   ports:
+  #     - 27017:27017
+  #   environment:
+  #     MONGO_INITDB_DATABASE: mongo
   
-  node:
-    container_name: node
+  # node:
+  #   container_name: node
+  #   build: .
+  #   command: npm run dev-back
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - mongo
+  
+  front:
+    container_name: front
     build: .
-    command: npm run dev
+    command: npm run dev-front
     ports:
-      - "3000:3000"
-    depends_on:
-      - mongo
-    volumes:
-      - ./src:/usr/app/src
+      - "5173:3333"
