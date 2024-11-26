@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useRef, useState } from "react";
+import Menu from "./Componets/Menu";
+import User from "./Componets/User";
 
 function App() {
+  //const Container = "w-8/9 h-1/2 bg-white"
+  const container = useRef<HTMLDivElement>(null)
+  const [showLayers, showLayersSet] = useState(0)
+
+  function handleLayer(layer:number){
+    container.current?.children[layer].classList.add("flex")
+    container.current?.children[layer].classList.remove("hidden")
+    container.current?.children[showLayers].classList.remove("flex")
+    container.current?.children[showLayers].classList.add("hidden")
+    showLayersSet(layer)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-img w-screen h-screen bg-slate-500 flex justify-center items-center md:justify-end" ref={container}>
+      <Menu handleLayer={handleLayer}/>
+      <User handleLayer={handleLayer}/>
     </div>
   );
 }
