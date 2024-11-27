@@ -1,5 +1,18 @@
 import moment from "moment";
 
+export const checkCreateAacount = (body: any):Promise<{checkes:boolean, err: string}>=>{
+    return new Promise((resolve)=>{
+        try {
+            if(typeof body.customer_code !== "string"){
+                throw new Error('INVALID DATA: customer_code');
+            }
+            resolve({checkes: true, err: ""})
+        } catch (error:any) {
+            resolve({checkes: false, err: error.message})
+        }
+    })
+}
+
 export const checkUpload = (body: any):Promise<{checkes:boolean, err: string}>=>{
     return new Promise((resolve)=>{
         try {

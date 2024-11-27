@@ -1,4 +1,4 @@
-import { checkConfirm, checkList, checkUpload } from '../usecase/CheckBodyCase';
+import { checkConfirm, checkCreateAacount, checkList, checkUpload } from '../usecase/CheckBodyCase';
 import { Request, Response } from 'express';
 import { consultAPI } from '../usecase/ConsultAPICase';
 import { UserSchema } from '../schemas/SchemaUser';
@@ -36,6 +36,28 @@ const introControll = (req: Request, res: Response) => {
     ] })
 }
 
+const crateAacontControll = async (req: Request, res: Response) =>{
+  const body = req.body
+  console.log(req.body)
+  const status = await checkCreateAacount(body)
+  if(!status.checkes){
+    resError(res, 400, "INVALID_DATA", status.err)
+    return
+  }
+  const User = mongoose.model('User', UserSchema)
+  const userfind = await User.findOne({customer_code: body.customer_code})
+  if(!userfind){
+    const newUser = new User({customer_code: body.customer_code, measure: []})
+    await newUser.save()
+    res.status(200)
+    res.json({
+        "customer_code": body.customer_code,
+    })
+  }else{
+    resError(res, 400, "INVALID_DATA", "USER_EXIST")
+  }
+}
+
 const uploadControll = async (req: Request, res: Response) =>{
     const body = req.body
     const status = await checkUpload(body)
@@ -47,8 +69,7 @@ const uploadControll = async (req: Request, res: Response) =>{
     const userfind = await User.findOne({customer_code: body.customer_code})
     let doc
     if(!userfind){
-      const newUser = new User({customer_code: body.customer_code, measure: []})
-      doc = await newUser.save()
+      resError(res, 400, "INVALID_DATA", "USER_NOTFONT")
     }else{
       doc = userfind
     }
@@ -166,4 +187,4 @@ const imageControll = (req: Request, res: Response) => {
   res.sendFile(imagePath);
 }
 
-export {introControll, uploadControll, confirmControll, listControll, imageControll}
+export {crateAacontControll, introControll, uploadControll, confirmControll, listControll, imageControll}

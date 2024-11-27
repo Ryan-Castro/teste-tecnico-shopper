@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
 import Menu from "./Componets/Menu";
 import User from "./Componets/User";
+import AddImg from "./Componets/AddImg";
+import Fixed from "./Componets/Fixed";
+import ToList from "./Componets/ToList";
 
 function App() {
   //const Container = "w-8/9 h-1/2 bg-white"
@@ -18,6 +21,9 @@ function App() {
     <div className="bg-img w-screen h-screen bg-slate-500 flex justify-center items-center md:justify-end" ref={container}>
       <Menu handleLayer={handleLayer}/>
       <User handleLayer={handleLayer}/>
+      <AddImg handleLayer={handleLayer}/>
+      <Fixed handleLayer={handleLayer}/>
+      <ToList handleLayer={handleLayer}/>
     </div>
   );
 }
