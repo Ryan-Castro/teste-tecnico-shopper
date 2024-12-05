@@ -10,7 +10,7 @@ import path from 'path';
 import fs from 'fs'
 import 'dotenv/config'
 
-const imageDirectory = path.join(__dirname, '..', '..' , 'public');
+const imageDirectory = path.join(__dirname, '..' , 'public');
 
 const introControll = (req: Request, res: Response) => {
     res.json({ routes: [
@@ -99,14 +99,14 @@ const uploadControll = async (req: Request, res: Response) =>{
         "measure_datetime": moment(body.measure_datetime).format("YYYY-MM-00T00:00:00Z"),
         "measure_type": body.measure_type,
         "has_confirmed": false,
-        "image_url": `http://localhost:3000/public/${filename}.${match[1]}`,
+        "image_url": `http://localhost:8090/public/${filename}.${match[1]}`,
         "measure_value": result,
       }
       measures.push(measure)
       await User.updateOne({customer_code: body.customer_code}, {customer_code: body.customer_code, measures: measures})
       res.status(200)
       res.json({
-          "image_url": `http://localhost:3000/public/${filename}.${match[1]}`,
+          "image_url": `http://localhost:8090/public/${filename}.${match[1]}`,
           "measure_value": result,
           "measure_uuid": uuid
         })

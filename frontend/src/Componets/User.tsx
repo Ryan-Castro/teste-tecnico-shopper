@@ -11,10 +11,10 @@ function User(props:{handleLayer:(layer:number)=>void}) {
         //error
         return
       }
-      await fetch("http://localhost:8080/createaacont", {
+      await fetch("http://localhost:8090/createaacont", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify({customer_code: name})
+        body: JSON.stringify({customer_code: name})
       }).then(res=>res.json()).then(json=>{
         console.log(json)
       })

@@ -6,7 +6,6 @@ import cors from 'cors'
 
 mongoose.connect('mongodb://mongo:27017/user')
   .then(() => console.log('Connected!'));
-
 const app = express();  
 const route = Router()
 app.use(cors())
@@ -18,4 +17,6 @@ route.use('/', apiRountes)
 
 
 app.use(route)
-app.listen(8080, '0.0.0.0')
+app.listen(8090, '0.0.0.0', ()=>{
+  console.log("up")
+})
