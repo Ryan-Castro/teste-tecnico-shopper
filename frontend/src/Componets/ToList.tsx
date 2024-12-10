@@ -14,10 +14,12 @@ function ToList(props:{handleLayer:(layer:number)=>void}) {
     const SelectRef = useRef<HTMLSelectElement>(null)
     const modalRef = useRef<HTMLDivElement>(null)
     const [listItens, setListItens] = useState<listIten[]>([])
+    const spanError = useRef<HTMLSpanElement>(null);
     const Button = "border w-80 py-4 bg-slate-800 text-white rounded-xl"
 
     async function toList(){
       const customer_code = inputNameRef.current?.value
+      if(customer_code===""){setError("Erro, coloque o nome");return}
       const option = SelectRef.current?.options[SelectRef.current?.selectedIndex].value
       let config = ""
       if(option !== ""){
@@ -29,6 +31,15 @@ function ToList(props:{handleLayer:(layer:number)=>void}) {
         modalRef.current?.classList.add("flex")
       })
     }
+
+    function setError(msm:string){
+      spanError.current!.innerHTML = msm;
+      spanError.current!.classList.remove("hidden");
+      setInterval(()=>{
+        spanError.current!.classList.add("hidden");
+      }, 10000)
+    }
+
     return (
       <div className="w-11/12 h-5/6 bg-white rounded-2xl justify-center items-center flex-col gap-2 md:w-96 md:h-screen lg:w-1/3 hidden">
         <input type="text"  placeholder="Seu nome"  className="border w-80 p-4 bg-slate-800 text-white rounded-xl pl-4" ref={inputNameRef}/>
@@ -39,6 +50,7 @@ function ToList(props:{handleLayer:(layer:number)=>void}) {
         </select>
         <input type="button" value="Enviar Correção"  className={Button} onClick={toList}/>
         <input type="button" value="Voltar"  className={Button} onClick={()=>{props.handleLayer(0)}}/>
+        <span ref={spanError} className="border hidden w-80 py-4 bg-red-600 text-white rounded-xl pl-4"></span>
         <div className="w-screen h-screen fixed left-0 top-0 hidden justify-center items-center Modal" ref={modalRef}>
           <div className="w-11/12 h-5/6 bg-white flex rounded-2xl justify-center items-center flex-col gap-2">
             <div className="w-11/12 h-4/6 rounded shadow-xl">

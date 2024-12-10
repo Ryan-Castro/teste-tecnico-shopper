@@ -18,7 +18,7 @@ function App() {
     showLayersSet(layer)
   }
   return (
-    <div className="bg-img w-screen h-screen bg-slate-500 flex justify-center items-center md:justify-end" ref={container}>
+    <div className="bg-img w-screen h-screen bg-slate-500 flex justify-center items-center md:justify-start" ref={container}>
       <Menu handleLayer={handleLayer}/>
       <User handleLayer={handleLayer}/>
       <AddImg handleLayer={handleLayer}/>
